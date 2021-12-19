@@ -24,8 +24,11 @@ echo weather reading api - used in node red example
 sleep 3
 sudo pip3 install pyowm
 tput setab 1; echo "5. RPi"; tput  sgr 0
-echo used in the temp sensor API (currently!)
+echo "used in the temp sensor API (currently!)"
 sleep 3
 sudo pip3 install RPi.gpio
+echo used by the 232 board
+sleep 3
+sudo pip3 install pyserial
 
 

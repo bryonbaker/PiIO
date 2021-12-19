@@ -1,15 +1,13 @@
 #!/usr/bin/python3
-#  example usage of PiIO 232 PCB
-#  ==================================
-#
-#  K Lawson June 2021
+#  example usage of PiIO 232 H PCB
+#  ===============================
 # 
 #  see https://gpiozero.readthedocs.io/en/stable/recipes.html
 #  for info on GPIOZero
 #
 from gpiozero import Button
 from gpiozero import PWMLED
-from gpiozero import LED 	# in GPIOZero outputs are called LEDs???
+from gpiozero import LED 	# in GPIOZero outputs are called LEDs
 from time import sleep
 from PiIO import PiIO_232_H_Mapper
 from PiIO import PiIO_col
@@ -33,7 +31,15 @@ o5 = LED(io.O5);
 o6 = PWMLED(io.O6,True,0,1000);
 o7 = LED(io.O7); 
 o8 = LED(io.O8); 
-ser = serial.Serial('/dev/ttyAMA0',9600,timeout=1)
+
+# select location of UART
+type = input("Pi 3B 4 or Zero? y/n: ")
+if type.lower() == 'y':
+	print("Newer board selected")
+	ser = serial.Serial('/dev/ttyS0',19200,timeout=1)
+else:
+	print("Older board selected")
+	ser = serial.Serial('/dev/ttyAMA0',19200,timeout=1)
 
 i1 = Button(io.I1,pull_up=False); 
 i2 = Button(io.I2,pull_up=False); 
@@ -52,7 +58,7 @@ run = LED(io.RUN);
 print (col.HOME,col.CLR,col.GREENB,col.BLACK," PiIO Example program - basic_232 \n",col.ENDC,sep='')
 print ("1. Program to echo when input pins are pulled high")
 print ("2. We will also set corresponding output high when this happens")
-print ("3. The output voltage will be Vfield - 1.2V")
+print ("3. The output voltage will be Vfield")
 print ("4. Output 6 uses a PWM Output so will be 50% of the other values")
 print ("5. use 3V3 to 24V to trigger input.")
 print ()
